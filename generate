@@ -16,7 +16,7 @@ const questionsContent = questions.map(function(q) {
 
 const content = template.replace('{questions}', questionsContent);
 
-const filename = path.resolve(__dirname, 'build', 'what-a-fun-mustache-ride.html');
+const filename = path.resolve(__dirname, 'build', 'kev-and-em.html');
 if (fs.existsSync(filename)) {
   fs.unlinkSync(filename);
 }
