@@ -1,0 +1,25 @@
+#!/usr/local/bin/node
+
+const fs = require('fs');
+const path = require('path');
+
+const questions = fs.readFileSync(path.resolve(__dirname, 'questions.txt'))
+    .toString()
+    .split(/\n/);
+
+const template = fs.readFileSync(path.resolve(__dirname, 'template.html')).toString();
+const questionTemplate = fs.readFileSync(path.resolve(__dirname, 'question.html')).toString();
+
+const questionsContent = questions.map(function(q) {
+  return questionTemplate.replace('{question}', q);
+}).join('\n');
+
+const content = template.replace('{questions}', questionsContent);
+
+const filename = path.resolve(__dirname, 'build', 'what-a-fun-mustache-ride.html');
+if (fs.existsSync(filename)) {
+  fs.unlinkSync(filename);
+}
+fs.writeFileSync(filename, content);
+
+console.log('Generated ' + filename);
